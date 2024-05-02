@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -32,6 +33,11 @@ public class FormController {
         else{
             return ResponseEntity.ok().body(form);
         }
+    }
+
+    @GetMapping("/api/form")
+    public ResponseEntity<List<FormData>>getFormData(){
+        return ResponseEntity.ok().body( formService.getAll());
     }
 
 
