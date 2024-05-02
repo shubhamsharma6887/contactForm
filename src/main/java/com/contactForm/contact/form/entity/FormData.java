@@ -1,10 +1,7 @@
 package com.contactForm.contact.form.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -25,6 +22,8 @@ public class FormData {
 
     private String phone;
 
+
+    @Column(columnDefinition = "TEXT")
     private String query;
 
     public int getId() {
