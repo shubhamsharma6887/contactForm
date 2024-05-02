@@ -40,5 +40,17 @@ public class FormController {
         return ResponseEntity.ok().body( formService.getAll());
     }
 
+    @PatchMapping("/api/form/{id}")
+    public ResponseEntity<FormDataResponse>updateFormData(@PathVariable int id){
+        FormDataResponse form = formService.updateFormData(id);
+        if(Objects.isNull(form)){
+            return  ResponseEntity.notFound().build();
+
+        }
+        else{
+            return ResponseEntity.ok().body(form);
+        }
+    }
+
 
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name="formdata")
 public class FormData {
 
     @Id
@@ -22,6 +23,15 @@ public class FormData {
 
     private String phone;
 
+    private boolean isResolved;
+
+    public boolean isResolved() {
+        return isResolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        isResolved = resolved;
+    }
 
     @Column(columnDefinition = "TEXT")
     private String query;

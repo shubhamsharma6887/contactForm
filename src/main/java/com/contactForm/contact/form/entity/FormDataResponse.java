@@ -16,6 +16,16 @@ public class FormDataResponse {
 
     private String query;
 
+    public boolean isResolved() {
+        return isResolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        isResolved = resolved;
+    }
+
+    private boolean isResolved;
+
     public int getId() {
         return id;
     }
@@ -88,7 +98,7 @@ public class FormDataResponse {
         this.query = query;
     }
 
-    public FormDataResponse(int id, String firstName, String lastName, String businessName, String businessLocation, String businessType, String email, String phone, String query) {
+    public FormDataResponse(int id, String firstName, String lastName, String businessName, String businessLocation, String businessType, String email, String phone, String query,boolean isResolved) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -98,5 +108,7 @@ public class FormDataResponse {
         this.email = email;
         this.phone = phone;
         this.query = query;
+        this.isResolved= isResolved;
     }
+    public FormDataResponse(){}
 }
