@@ -46,8 +46,8 @@ public class FormService {
        return contactRepo.saveAndFlush(formData).getId();
     }
 
-    public List<FormData> getAll() {
-        List<FormData> alls= contactRepo.findAll();
+    public List<FormDataResponse> getAll(String status) {
+        List<FormDataResponse> alls= formWriteRepository.getActiveQueries(status);
         return alls;
 
     }

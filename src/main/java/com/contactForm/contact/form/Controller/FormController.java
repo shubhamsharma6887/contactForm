@@ -25,6 +25,7 @@ public class FormController {
     }
     @GetMapping("/api/form/{id}")
     public ResponseEntity<FormDataResponse>getFormData(@PathVariable int id){
+        System.out.println("get one");
         FormDataResponse form = formService.getFormData(id);
         if(Objects.isNull(form)){
             return  ResponseEntity.notFound().build();
@@ -36,8 +37,9 @@ public class FormController {
     }
 
     @GetMapping("/api/form")
-    public ResponseEntity<List<FormData>>getFormData(){
-        return ResponseEntity.ok().body( formService.getAll());
+    public ResponseEntity<List<FormDataResponse>>getFormData(@RequestParam String status){
+        System.out.println("get all "+status);
+        return ResponseEntity.ok().body( formService.getAll(status));
     }
 
     @PatchMapping("/api/form/{id}")

@@ -1,5 +1,6 @@
 package com.contactForm.contact.form.Repository;
 
+import com.contactForm.contact.form.entity.FormData;
 import com.contactForm.contact.form.entity.FormDataResponse;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,10 @@ public class FormWriteRepository extends JdbcDaoSupport {
      List<FormDataResponse> rs = getJdbcTemplate().query(query, new FormDataMapper());
         System.out.println(rs.get(0).getBusinessLocation());
         return rs.get(0);
+    }
+
+    public List<FormDataResponse> getActiveQueries(String status) {
+        String query=  String.format("SELECT * FROM FORMDATA WHERE is_resolved = %s",status);
+        return getJdbcTemplate().query(query,new FormDataMapper());
     }
 }
