@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RestController
 public class FormController {
 
