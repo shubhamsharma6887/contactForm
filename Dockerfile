@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/*.jar
 
 # Copy the credentials.json file into the container
-COPY src/main/resources/credentials.json /app/credentials.json
+
 
 # Expose the port that the Spring Boot application will run on
 EXPOSE 8088
