@@ -7,5 +7,5 @@ RUN mvn clean -e -B package
 FROM openjdk:17
 WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/*.jar
-EXPOSE 8082
+EXPOSE 8088
 ENTRYPOINT ["java", "-jar", "/app/*.jar" ]
