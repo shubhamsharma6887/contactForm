@@ -19,6 +19,9 @@ FROM openjdk:17-jdk-alpine
 # Set the working directory in the container
 WORKDIR /app
 
+# Create the directory if it doesn't exist
+RUN mkdir -p /app
+
 # Copy the packaged JAR file from the build stage to the working directory in the container
 COPY --from=build /target/ContactFormApplication.jar /app/app.jar
 
