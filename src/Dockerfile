@@ -20,10 +20,10 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copy the packaged JAR file from the build stage to the working directory in the container
-COPY --from=build /target/your-application-name.jar /app/app.jar
+COPY --from=build /target/ContactFormApplication.jar /app/app.jar
 
 # Expose the port the application runs on
-EXPOSE 8088
+EXPOSE 8080
 
 # Command to run the application
 CMD ["java", "-jar", "app.jar"]
