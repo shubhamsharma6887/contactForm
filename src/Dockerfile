@@ -1,32 +1,29 @@
-# Use a base image with Maven and JDK 17
-FROM maven:3.8.4-openjdk-17 AS build
+# Use Maven image to build the application
+FROM maven:3.8.1-openjdk-17-slim AS builder
 
-# Copy the Maven project file
-COPY pom.xml .
+# Set the working directory
+WORKDIR /app
 
-# Build all dependencies for caching
-RUN mvn dependency:go-offline -B
+# Copy the entire project directory into the container
+COPY . .
 
-# Copy the source code
-COPY src ./src
+# Build the application with Maven
+RUN mvn clean package -DskipTests
 
-# Build the application
-RUN mvn package -DskipTests
-
-# Use a base image with Java 17
-FROM openjdk:17-jdk-alpine
+# Use a smaller base image for the final Docker image
+FROM openjdk:17
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Create the directory if it doesn't exist
-RUN mkdir -p /app
+# Copy the JAR file built in the previous stage
+COPY --from=builder /app/target/*.jar /app/*.jar
 
-# Copy the packaged JAR file from the build stage to the working directory in the container
-COPY --from=build /target/ContactFormApplication.jar /app/app.jar
+# Copy the credentials.json file into the container
 
-# Expose the port the application runs on
-EXPOSE 8080
 
-# Command to run the application
-CMD ["java", "-jar", "app.jar"]
+# Expose the port that the Spring Boot application will run on
+EXPOSE 8088
+
+# Command to run the Spring Boot application when the container starts
+ENTRYPOINT ["java", "-jar", "/app/*.jar"]
