@@ -1,11 +1,29 @@
-FROM maven:3.8.1-openjdk-17-slim AS builder
-WORKDIR /app
-COPY app .
-RUN mvn -e -B dependency:resolve
-RUN mvn clean -e -B package
+# Use a base image with Maven and JDK 17
+FROM maven:3.8.4-openjdk-17 AS build
 
-FROM openjdk:17
+# Copy the Maven project file
+COPY pom.xml .
+
+# Build all dependencies for caching
+RUN mvn dependency:go-offline -B
+
+# Copy the source code
+COPY src ./src
+
+# Build the application
+RUN mvn package -DskipTests
+
+# Use a base image with Java 17
+FROM openjdk:17-jdk-alpine
+
+# Set the working directory in the container
 WORKDIR /app
-COPY --from=builder /app/target/*.jar /app/*.jar
+
+# Copy the packaged JAR file from the build stage to the working directory in the container
+COPY --from=build /target/your-application-name.jar /app/app.jar
+
+# Expose the port the application runs on
 EXPOSE 8088
-ENTRYPOINT ["java", "-jar", "/app/*.jar" ]
+
+# Command to run the application
+CMD ["java", "-jar", "app.jar"]
